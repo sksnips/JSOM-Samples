@@ -1,0 +1,28 @@
+<!-- HTML Content -->   
+<div id="myapp"></div>  
+<!-- Script Content -->  
+<script type='text/javascript'>  
+var oWeb;  
+function getwebtitle()   
+{  
+    var clientContext = SP.ClientContext.get_current(); // equivalent to SPContext.Current  
+    oWeb = clientContext.get_web(); //Gets the current Web Object  
+    clientContext.load(oWeb);   
+    clientContext.executeQueryAsync(onSucceeded,onFailed);  
+}  
+function onSucceeded()  
+{  
+    document.getElementById("myapp").innerHTML = "<b>Web Title:</b> " + oWeb.get_title();  
+}  
+function onFailed(sender, args)  
+{  
+    try  
+    {  
+        console.log('Error: ' + args.get_message());  
+    }   
+    catch (err)   
+    {  
+    }  
+}  
+ExecuteOrDelayUntilScriptLoaded(getwebtitle, "sp.js");  
+</script>
